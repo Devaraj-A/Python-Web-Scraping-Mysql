@@ -1,19 +1,16 @@
 import mysql.connector
-
-moneycontrol = mysql.connector.connect(host="localhost", user="root", password="Deva!@#$", database="moneycontrol")
-cursor = moneycontrol.cursor()
-#cursor.execute('Create Database moneycontrol')
-cursor.execute("drop table data")
-cursor.execute("CREATE TABLE data(ID INT, Name VARCHAR(500), Market_Price VARCHAR(100), Ref_Url VARCHAR(1000),Datetime VARCHAR(50))")
-
 from bs4 import BeautifulSoup
 import requests
 from Urls.Urls import urls
 import pandas as pd
 import datetime
 
+moneycontrol = mysql.connector.connect(host="localhost", user="root", password="", database="moneycontrol")
+cursor = moneycontrol.cursor()
+cursor.execute('Create Database moneycontrol')
+cursor.execute("CREATE TABLE data(ID INT, Name VARCHAR(500), Market_Price VARCHAR(100), Ref_Url VARCHAR(1000),Datetime VARCHAR(50))")
+
 id = 0
-data=[]
 for links in urls:
     page = requests.get(links)
     soup = BeautifulSoup(page.text, 'lxml')
